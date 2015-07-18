@@ -1,4 +1,4 @@
-#include "magic.h"
+#include "Magic.h"
 
 void initializeAccelerometer();
 void color_update_hsl(int led);
