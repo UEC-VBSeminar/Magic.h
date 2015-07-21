@@ -2,10 +2,10 @@
 #define Magic_h
 
 #include "arduino.h"
-#include <Wire.h>                     //I2Cç”¨
+#include <Wire.h>                     //I2C—p
 #include <stdbool.h>
-#include "Adafruit_NeoPixel.h"        //ãƒ•ãƒ«ã‚«ãƒ©ãƒ¼LEDç”¨//åˆ¥é€”DLå¿…è¦
-#include "ADXL345.h"                  //åŠ é€Ÿåº¦ã‚»ãƒ³ã‚µç”¨
+#include "Adafruit_NeoPixel.h"        //ƒtƒ‹ƒJƒ‰[LED—p//•Ê“rDL•K—v
+#include "ADXL345.h"                  //‰Á‘¬“xƒZƒ“ƒT—p
 #include "Timer.h"
 
 enum ActionStatus { Nothing, Tap, DoubleTap, FreeFall };
@@ -19,31 +19,31 @@ bool freefall();
 bool tap();
 bool doubletap();
 
-// led ã®è‰²ç›¸ã‚’å¤‰æ›´ã™ã‚‹
-// è‰²ç›¸: 0.0-1.0
+// led ‚ÌF‘Š‚ğ•ÏX‚·‚é
+// F‘Š: 0.0-1.0
 void color(int led, double hue);
 
-// led ã®æ˜ã‚‹ã•ã‚’å¤‰æ›´ã™ã‚‹
-// æ˜ã‚‹ã•: 0.0-1.0
+// led ‚Ì–¾‚é‚³‚ğ•ÏX‚·‚é
+// –¾‚é‚³: 0.0-1.0
 void brightness(int led, double brightness);
 
-// led ã®å½©åº¦ã‚’å¤‰æ›´ã™ã‚‹
-// å½©åº¦ 0.0-1.0
+// led ‚ÌÊ“x‚ğ•ÏX‚·‚é
+// Ê“x 0.0-1.0
 void saturation(int led, double saturation);
 
-// led ã‚’ãƒ¬ã‚¤ãƒ³ãƒœãƒ¼ã«è¡¨ç¤ºã™ã‚‹ã€‚
-// speed ã¯ 100
+// led ‚ğƒŒƒCƒ“ƒ{[‚É•\¦‚·‚éB
+// speed ‚Í 100
 void rainbow(int led, double period);
 
-// led ã®è‰²ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«ç‚¹ç¯ã™ã‚‹
+// led ‚ÌF‚ğƒ‰ƒ“ƒ_ƒ€‚É“_“”‚·‚é
 void randomcolor(int led);
 
-// ãƒ‡ãƒãƒƒã‚°ç”¨ (led ã®ç¾åœ¨æ¨™ç¤ºä¸­ã®è‰²ã«é–¢ã™ã‚‹å€¤ã‚’è¿”ã™)
+// ƒfƒoƒbƒO—p (led ‚ÌŒ»İ•W¦’†‚ÌF‚ÉŠÖ‚·‚é’l‚ğ•Ô‚·)
 double color(int led);
 double brightness(int led);
 double saturation(int led);
 
-// led ã‚’ period ç§’é–“éš”ã§ç‚¹æ»…ã•ã›ã‚‹
+// led ‚ğ period •bŠÔŠu‚Å“_–Å‚³‚¹‚é
 void blink(int led, double period);
 
 void fadein(int led, double period);

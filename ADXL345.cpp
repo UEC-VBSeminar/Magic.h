@@ -242,7 +242,7 @@ void ADXL345::getAxisOffset(int* x, int* y, int*z) {
 // Sets the DUR byte
 // The DUR byte contains an unsigned time value representing the maximum time
 // that an event must be above THRESH_TAP threshold to qualify as a tap event
-// The scale factor is 625Âµs/LSB
+// The scale factor is 625‘³s/LSB
 // A value of 0 disables the tap/double tap funcitons. Max value is 255.
 void ADXL345::setTapDuration(int tapDuration) {
 	tapDuration = constrain(tapDuration,0,255);

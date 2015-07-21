@@ -4,11 +4,11 @@ void initializeAccelerometer();
 void color_update_hsl(int led);
 void color_show(int led);
 
-/* LEDã®ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ— */
-int NumOfLED = 2;                     // ãƒ•ãƒ«ã‚«ãƒ©ãƒ¼LEDã®å€‹æ•°
-int PinOfLED = 2;                     // LEDãŒç¹‹ãŒã£ã¦ã‚‹pin
+/* LED‚ÌƒZƒbƒgƒAƒbƒv */
+int NumOfLED = 2;                     // ƒtƒ‹ƒJƒ‰[LED‚ÌŒÂ”
+int PinOfLED = 2;                     // LED‚ªŒq‚ª‚Á‚Ä‚épin
 Adafruit_NeoPixel LED = Adafruit_NeoPixel(NumOfLED, PinOfLED, NEO_RGB + NEO_KHZ800);
-/* åŠ é€Ÿåº¦ã‚»ãƒ³ã‚µã®ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ— */
+/* ‰Á‘¬“xƒZƒ“ƒT‚ÌƒZƒbƒgƒAƒbƒv */
 ADXL345 adxl;
 
 uint32_t led_colors[2] = { 0x000000, 0x000000 };
@@ -34,28 +34,28 @@ double constraint(double value, double min, double max) {
   return value;
 }
 
-unsigned long cycle_time = REPEAT_CYCLE_MS; // æ¯å›ã®ãƒ«ãƒ¼ãƒ—ã«æ›ã‹ã‚‹æ™‚é–“
+unsigned long cycle_time = REPEAT_CYCLE_MS; // –ˆ‰ñ‚Ìƒ‹[ƒv‚ÉŠ|‚©‚éŠÔ
 
 void setup() {
-  // ãƒ”ãƒ³åˆæœŸåŒ–
+  // ƒsƒ“‰Šú‰»
   pinMode(2,OUTPUT);
   digitalWrite(2,LOW);
 
-  /* ã‚·ãƒªã‚¢ãƒ«åˆæœŸåŒ– */
+  /* ƒVƒŠƒAƒ‹‰Šú‰» */
   Serial.begin(9600);
   // while (!Serial )
   // {
   //   ; // wait for serial port to connect. Needed for Leonardo only
   // }
 
-  /* LEDåˆæœŸåŒ– */
+  /* LED‰Šú‰» */
   LED.begin();
   LED.setBrightness(50);
-  LED.setPixelColor(0, 0, 0, 0); // 0ç•ªç›®ã®LED, r, g, b
-  LED.setPixelColor(1, 0, 0, 0); // 1ç•ªç›®ã®LED, r, g, b
+  LED.setPixelColor(0, 0, 0, 0); // 0”Ô–Ú‚ÌLED, r, g, b
+  LED.setPixelColor(1, 0, 0, 0); // 1”Ô–Ú‚ÌLED, r, g, b
   LED.show();
 
-  /* åŠ é€Ÿåº¦ã‚»ãƒ³ã‚µåˆæœŸåŒ– */
+  /* ‰Á‘¬“xƒZƒ“ƒT‰Šú‰» */
   initializeAccelerometer();
 
   // led1_s = LEDStatus::On;
@@ -64,55 +64,55 @@ void setup() {
   // Serial.println("setup done");
 }
 
-/* åŠ é€Ÿåº¦ã‚»ãƒ³ã‚µåˆæœŸåŒ– */
+/* ‰Á‘¬“xƒZƒ“ƒT‰Šú‰» */
 void initializeAccelerometer() {
 
   adxl.powerOn();
 
-  /* å‹•ä½œã—ãŸã‹ã‚’ç›£è¦–ã™ã‚‹è»¸ã®è¨­å®š (1 == on; 0 == off) */
-  //å„è»¸ã®åˆ¤å®šã®è«–ç†å’Œ
+  /* “®ì‚µ‚½‚©‚ğŠÄ‹‚·‚é²‚Ìİ’è (1 == on; 0 == off) */
+  //Še²‚Ì”»’è‚Ì˜_—˜a
   adxl.setActivityX(true);
   adxl.setActivityY(true);
   adxl.setActivityZ(true);
 
-  // å‹•ä½œã—ã¦ãªã„ã‚’ç›£è¦–ã™ã‚‹è»¸ã®è¨­å®š
-  //å„è»¸ã®åˆ¤å®šã®è«–ç†ç©
+  // “®ì‚µ‚Ä‚È‚¢‚ğŠÄ‹‚·‚é²‚Ìİ’è
+  //Še²‚Ì”»’è‚Ì˜_—Ï
   adxl.setInactivityX(true);
   adxl.setInactivityY(true);
   adxl.setInactivityZ(true);
 
-  // ã‚¿ãƒƒãƒ—ã•ã‚ŒãŸã“ã¨ã‚’æ¤œè¦–ã™ã‚‹è»¸ã®è¨­å®š
+  // ƒ^ƒbƒv‚³‚ê‚½‚±‚Æ‚ğŒŸ‹‚·‚é²‚Ìİ’è
   adxl.setTapDetectionOnX(false);
   adxl.setTapDetectionOnY(false);
   adxl.setTapDetectionOnZ(true);
 
-  /* å‹•ä½œã®ã—ãã„å€¤ã‚’è¨­å®š (0-255) */
-  adxl.setActivityThreshold(25);    //å€¤:*62.5[mg]
-  adxl.setInactivityThreshold(30); // 75 //å€¤:*62.5[mg]
-  adxl.setTimeInactivity(1);       // 10 //éå‹•ä½œã®åˆ¤å®šã¾ã§ã«è¦ã™ã‚‹æ™‚é–“//å€¤:*5[ms]
+  /* “®ì‚Ì‚µ‚«‚¢’l‚ğİ’è (0-255) */
+  adxl.setActivityThreshold(25);    //’l:*62.5[mg]
+  adxl.setInactivityThreshold(30); // 75 //’l:*62.5[mg]
+  adxl.setTimeInactivity(1);       // 10 //”ñ“®ì‚Ì”»’è‚Ü‚Å‚É—v‚·‚éŠÔ//’l:*5[ms]
 
-  // ã‚¿ãƒƒãƒ—, ãƒ€ãƒ–ãƒ«ã‚¿ãƒƒãƒ—ã‚’æ¤œå‡ºã™ã‚‹ã—ãã„å€¤ã®è¨­å®š (0-255)
-  // ã‚¿ãƒƒãƒ—æ¤œå‡º
-  adxl.setTapThreshold(80);         // å€¤:*62.5[mg]
-  adxl.setTapDuration(100);          // å€¤:*0.625[ms]
-  // ãƒ€ãƒ–ãƒ«ã‚¿ãƒƒãƒ—æ¤œå‡º
-  adxl.setDoubleTapLatency(10);     // å€¤:*1.25[ms]
-  adxl.setDoubleTapWindow(200);     // å€¤:*1.25[ms]
+  // ƒ^ƒbƒv, ƒ_ƒuƒ‹ƒ^ƒbƒv‚ğŒŸo‚·‚é‚µ‚«‚¢’l‚Ìİ’è (0-255)
+  // ƒ^ƒbƒvŒŸo
+  adxl.setTapThreshold(80);         // ’l:*62.5[mg]
+  adxl.setTapDuration(100);          // ’l:*0.625[ms]
+  // ƒ_ƒuƒ‹ƒ^ƒbƒvŒŸo
+  adxl.setDoubleTapLatency(10);     // ’l:*1.25[ms]
+  adxl.setDoubleTapWindow(200);     // ’l:*1.25[ms]
 
-  // è‡ªç”±è½ä¸‹ã‚’æ¤œå‡ºã™ã‚‹ã—ãã„å€¤ã®è¨­å®š (0-255)
-  // adxl.setFreeFallThreshold(0x09);  // å€¤:*62.5[mg] (æ¨å¥¨: 0x05 - 0x09)
-  // adxl.setFreeFallDuration(0x0A);   // å€¤:*5[ms] (æ¨å¥¨: 0x14 - 0.46)
-  adxl.setFreeFallThreshold(8);  // å€¤:*62.5[mg] (æ¨å¥¨: 0x05 - 0x09)
-  adxl.setFreeFallDuration(0);   // å€¤:*5[ms] (æ¨å¥¨: 0x14 - 0.46)
+  // ©—R—‰º‚ğŒŸo‚·‚é‚µ‚«‚¢’l‚Ìİ’è (0-255)
+  // adxl.setFreeFallThreshold(0x09);  // ’l:*62.5[mg] („§: 0x05 - 0x09)
+  // adxl.setFreeFallDuration(0x0A);   // ’l:*5[ms] („§: 0x14 - 0.46)
+  adxl.setFreeFallThreshold(8);  // ’l:*62.5[mg] („§: 0x05 - 0x09)
+  adxl.setFreeFallDuration(0);   // ’l:*5[ms] („§: 0x14 - 0.46)
 
-  // å‰²ã‚Šè¾¼ã¿ã«ä½¿ã†ãƒ”ãƒ³ã®è¨­å®š (pin1 ã‚’ä½¿ã†, pin2ã¯ãƒªã‚»ãƒƒãƒˆãŒã§ããªã„ã¨ã„ã†ä¸å…·åˆãŒã‚ã‚‹)
+  // Š„‚è‚İ‚Ég‚¤ƒsƒ“‚Ìİ’è (pin1 ‚ğg‚¤, pin2‚ÍƒŠƒZƒbƒg‚ª‚Å‚«‚È‚¢‚Æ‚¢‚¤•s‹ï‡‚ª‚ ‚é)
   adxl.setInterruptMapping(ADXL345_INT_SINGLE_TAP_BIT,   ADXL345_INT1_PIN);
   adxl.setInterruptMapping(ADXL345_INT_DOUBLE_TAP_BIT,   ADXL345_INT1_PIN);
   adxl.setInterruptMapping(ADXL345_INT_FREE_FALL_BIT,    ADXL345_INT1_PIN);
   adxl.setInterruptMapping(ADXL345_INT_ACTIVITY_BIT,     ADXL345_INT1_PIN);
   adxl.setInterruptMapping(ADXL345_INT_INACTIVITY_BIT,   ADXL345_INT1_PIN);
 
-  // å‰²è¾¼ã¿ãƒ¬ã‚¸ã‚¹ã‚¿ã®è¨­å®š
+  // Š„‚İƒŒƒWƒXƒ^‚Ìİ’è
   adxl.setInterrupt(ADXL345_INT_SINGLE_TAP_BIT, true);
   adxl.setInterrupt(ADXL345_INT_DOUBLE_TAP_BIT, true);
   adxl.setInterrupt(ADXL345_INT_FREE_FALL_BIT,  true);
@@ -127,27 +127,27 @@ void loop() {
 
   byte interrupts = adxl.getInterruptSource();
 
-  // å‹•ä½œã—ã¦ãªã„?
+  // “®ì‚µ‚Ä‚È‚¢?
   if(adxl.triggered(interrupts, ADXL345_INACTIVITY) ) {
     isActive = false;
   }
 
-  // å‹•ä½œã—ãŸ?
+  // “®ì‚µ‚½?
   if(adxl.triggered(interrupts, ADXL345_ACTIVITY) ) {
     isActive = true;
   }
 
-  // ã‚¿ãƒƒãƒ—
+  // ƒ^ƒbƒv
   if(adxl.triggered(interrupts, ADXL345_SINGLE_TAP) ) {
     action_s = Tap;
   }
 
-  // ãƒ€ãƒ–ãƒ«ã‚¿ãƒƒãƒ—
+  // ƒ_ƒuƒ‹ƒ^ƒbƒv
   if(adxl.triggered(interrupts, ADXL345_DOUBLE_TAP) ) {
     action_s = DoubleTap;
   }
 
-  // è‡ªç”±è½ä¸‹
+  // ©—R—‰º
   if(adxl.triggered(interrupts, ADXL345_FREE_FALL)) {
     // action_s = FreeFall;
     isFreeFall = true;
